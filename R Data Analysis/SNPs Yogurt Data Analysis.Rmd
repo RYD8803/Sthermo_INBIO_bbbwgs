@@ -1,0 +1,64 @@
+---
+title: "SNPs Yogurt Data Analysis"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Reading Yogurt file
+
+```{r}
+#Read all the csv files
+CF13_SNP <- read.csv("CF13_gene_effects.csv")
+CF8_SNP <- read.csv("CF8_gene_effects.csv")
+CF2_SNP <- read.csv("CF2_gene_effects.csv")
+```
+
+# Filtering only High Impact Data
+
+```{r}
+#Filter only the high impact SNPs
+library(dplyr)
+CF13_SNP_high <- filter(CF13_SNP, IMPACT == "HIGH")
+CF2_SNP_high <- filter(CF2_SNP, IMPACT == "HIGH")
+CF8_SNP_high <- filter(CF8_SNP, IMPACT == "HIGH")
+```
+
+# Finding shared and unique SNPs
+
+```{r}
+#Find common SNPs
+common_SNP <- Reduce(intersect, list(CF13_SNP_high$GENE, CF2_SNP_high$GENE, CF8_SNP_high$GENE))
+head(common_SNP)
+```
+
+```{r}
+#Finding unique genes from each strain in the SNP dataframe
+vec_list <- list(
+    CF13 = unique(CF13_SNP_high$GENE),
+    CF2  = unique(CF2_SNP_high$GENE),
+    CF8  = unique(CF8_SNP_high$GENE)
+)
+
+unique_genes <- setNames(
+    lapply(names(vec_list), function(name) {
+        setdiff(vec_list[[name]],
+                unlist(vec_list[names(vec_list) != name]))
+    }),
+    names(vec_list)
+)
+
+#Count the number of unique genes
+for (i in 1:3){
+    print(length(unique_genes[[i]]))
+}
+
+```
+
+```{r}
+#Checking all the unique genes
+unique_genes
+```
