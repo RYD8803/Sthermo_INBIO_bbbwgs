@@ -18,6 +18,11 @@ This project were aimed to analyzed three Streptococcus thermophilus strain (CF2
 - Visualization: ngi-visualization (v0.1)
 - Data processing: R (v4.5.1)
 
+# Conclusion
+- CF13_14 possessed **56 genes** affected by high-impact SNPs, whereas CF2_14 have **25 genes** and CF8_14 have **29 genes** that were uniquely affected on each strain.
+- In CF13_14, four genes with high impact SNPs are directly involved in carbohydrate and amino acid metabolism, which are *lacZ*, *galE*, *ilvD*, and *manA*.
+- In contrast, CF8_14 possessed a unique high-impact SNP in the housekeeping gene *gyrA*, while CF2_14 contained high-impact SNPs exclusively in hypothetical proteins with unknown functions.
+
 ## Data Retrieval
 Retrieved from NCBI-SRA using SRA Toolkit prefetch (v3.4.1).
 
